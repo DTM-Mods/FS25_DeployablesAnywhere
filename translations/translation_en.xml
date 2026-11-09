@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<l10n>
+    <texts>
+        <text name="input_DA_TOGGLE_FREE_PLACEMENT" text="Free placement (construction mode)"/>
+        <text name="input_DA_TOGGLE_NO_LEVELING" text="Place without flattening (construction mode)"/>
+        <text name="input_DA_AXIS_NUDGE_FORWARD_1" text="Nudge item away from camera"/>
+        <text name="input_DA_AXIS_NUDGE_FORWARD_2" text="Nudge item toward camera"/>
+        <text name="input_DA_AXIS_NUDGE_SIDE_1" text="Nudge item right"/>
+        <text name="input_DA_AXIS_NUDGE_SIDE_2" text="Nudge item left"/>
+        <text name="input_DA_AXIS_HEIGHT_1" text="Raise item (fine)"/>
+        <text name="input_DA_AXIS_HEIGHT_2" text="Lower item (fine)"/>
+        <text name="input_DA_AXIS_ROTATE_1" text="Rotate item 1° (+)"/>
+        <text name="input_DA_AXIS_ROTATE_2" text="Rotate item 1° (-)"/>
+        <text name="input_DA_RESET_ADJUST" text="Reset nudge, height and rotation"/>
+        <text name="da_freePlacementOff" text="Free placement: off"/>
+        <text name="da_freePlacementOn" text="Free placement: ON"/>
+        <text name="da_noLevelingOff" text="Flatten ground: yes"/>
+        <text name="da_noLevelingOn" text="Flatten ground: NO"/>
+        <text name="da_nudgeForward" text="Nudge forward/back"/>
+        <text name="da_nudgeSide" text="Nudge left/right"/>
+        <text name="da_height" text="Raise/lower (fine)"/>
+        <text name="da_rotate" text="Rotate 1°"/>
+        <text name="da_resetAdjust" text="Reset nudge/height/rotation"/>
+        <text name="da_noteFree" text="free placement"/>
+        <text name="da_noteNoLeveling" text="no flattening"/>
+        <text name="da_noteLocked" text="locked"/>
+        <text name="da_noteHeight" text="height %s m"/>
+        <text name="da_noteRotation" text="rotation %s°"/>
+    </texts>
+</l10n>

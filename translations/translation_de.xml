@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<l10n>
+    <texts>
+        <text name="input_DA_TOGGLE_FREE_PLACEMENT" text="Freies Platzieren (Baumodus)"/>
+        <text name="input_DA_TOGGLE_NO_LEVELING" text="Ohne Einebnen platzieren (Baumodus)"/>
+        <text name="input_DA_AXIS_NUDGE_FORWARD_1" text="Objekt von der Kamera weg schieben"/>
+        <text name="input_DA_AXIS_NUDGE_FORWARD_2" text="Objekt zur Kamera hin schieben"/>
+        <text name="input_DA_AXIS_NUDGE_SIDE_1" text="Objekt nach rechts schieben"/>
+        <text name="input_DA_AXIS_NUDGE_SIDE_2" text="Objekt nach links schieben"/>
+        <text name="input_DA_AXIS_HEIGHT_1" text="Objekt anheben (fein)"/>
+        <text name="input_DA_AXIS_HEIGHT_2" text="Objekt absenken (fein)"/>
+        <text name="input_DA_AXIS_ROTATE_1" text="Objekt um 1° drehen (+)"/>
+        <text name="input_DA_AXIS_ROTATE_2" text="Objekt um 1° drehen (-)"/>
+        <text name="input_DA_RESET_ADJUST" text="Verschieben, Höhe und Drehung zurücksetzen"/>
+        <text name="da_freePlacementOff" text="Freies Platzieren: aus"/>
+        <text name="da_freePlacementOn" text="Freies Platzieren: AN"/>
+        <text name="da_noLevelingOff" text="Boden einebnen: ja"/>
+        <text name="da_noLevelingOn" text="Boden einebnen: NEIN"/>
+        <text name="da_nudgeForward" text="Vor/zurück schieben"/>
+        <text name="da_nudgeSide" text="Links/rechts schieben"/>
+        <text name="da_height" text="Höher/tiefer (fein)"/>
+        <text name="da_rotate" text="Um 1° drehen"/>
+        <text name="da_resetAdjust" text="Verschieben/Höhe/Drehung zurücksetzen"/>
+        <text name="da_noteFree" text="frei platziert"/>
+        <text name="da_noteNoLeveling" text="ohne Einebnen"/>
+        <text name="da_noteLocked" text="festgehalten"/>
+        <text name="da_noteHeight" text="Höhe %s m"/>
+        <text name="da_noteRotation" text="Drehung %s°"/>
+    </texts>
+</l10n>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<modDesc descVersion="114" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://validation.gdn.giants-software.com/xml/fs25/modDesc.xsd">
+    <author>Fennell</author>
+    <version>1.1.2.0</version>
+    <title>
+        <en>Deployables Anywhere</en>
+        <de>Überall Platzieren</de>
+    </title>
+    <description>
+        <en><![CDATA[Place buildings, decorations, fences and trees where the game says they cannot be placed, place without flattening the ground, and position items precisely.
+
+Free placement (Ctrl+Shift+P) is off by default, so nothing changes by accident. In construction mode, pick an item and press Ctrl+Shift+P; the F1 help shows whether it is on. While it is on, these checks are skipped: land you do not own, overlap with other objects, restricted, shop and spawn areas, water, the item's own "cannot be placed here" check, and blocked terrain leveling. The price at the cursor names the check that is skipped, for example "(free placement: Land is not owned by you)". Where leveling is blocked, the item is placed without flattening the ground. Still checked: money, building slots, your farm's build permission, and items that cannot be bought.
+
+For buildings and decorations:
+- Ctrl+Shift+G: place without flattening the ground (no leveling cost). Items on slopes keep the natural terrain.
+- Ctrl+Shift+Arrow keys: nudge the item 10 cm away from/toward the camera or left/right. The first nudge locks the item in place, so the mouse no longer moves it.
+- Ctrl+Shift+PageUp/PageDown: raise/lower 5 cm, without limit. Raised or lowered items are placed without flattening.
+- Ctrl+Shift+Comma/Period: rotate 1°.
+- Ctrl+Shift+Backspace: reset nudge, height and rotation.
+Hold a key to repeat. Everything resets when you pick another item or leave construction mode.
+
+Selling: your farm's buildings, decorations and fences can always be sold in construction mode (demolition mode, B), also on land you do not own. No key needed. Items of other farms and of the map cannot be sold. Removed fence segments and panels are refunded at what they cost to build; the base game pays nothing back for fences.
+
+The keys can be changed in Settings > Controls. Install on the server and every client in multiplayer.]]></en>
+        <de><![CDATA[Gebäude, Deko, Zäune und Bäume dort platzieren, wo das Spiel es nicht erlaubt, ohne Einebnen platzieren und Objekte genau ausrichten.
+
+Freies Platzieren (Strg+Umschalt+P) ist zunächst aus, damit nichts aus Versehen passiert. Im Baumodus ein Objekt wählen und Strg+Umschalt+P drücken; die F1-Hilfe zeigt den Zustand. Solange es an ist, entfallen diese Prüfungen: fremdes Land, Überschneidung mit anderen Objekten, gesperrte Bereiche, Shop- und Spawnbereiche, Wasser, die eigene "kann hier nicht platziert werden"-Prüfung des Objekts und blockierte Geländeanpassung. Am Preis beim Cursor steht, welche Prüfung entfällt. Wo die Geländeanpassung blockiert ist, wird ohne Einebnen platziert. Weiterhin geprüft: Geld, Bauplätze, die Baurechte deines Hofs und nicht kaufbare Objekte.
+
+Für Gebäude und Deko:
+- Strg+Umschalt+G: ohne Einebnen platzieren (keine Kosten für Geländeanpassung).
+- Strg+Umschalt+Pfeiltasten: Objekt um 10 cm verschieben. Das erste Verschieben hält das Objekt fest, die Maus bewegt es dann nicht mehr.
+- Strg+Umschalt+Bild auf/Bild ab: 5 cm höher/tiefer, ohne Grenze. Erhöhte oder abgesenkte Objekte werden ohne Einebnen platziert.
+- Strg+Umschalt+Komma/Punkt: um 1° drehen.
+- Strg+Umschalt+Rücktaste: Verschieben, Höhe und Drehung zurücksetzen.
+Taste halten wiederholt. Alles wird zurückgesetzt, wenn ein anderes Objekt gewählt oder der Baumodus verlassen wird.
+
+Verkaufen: Gebäude, Deko und Zäune deines Hofs lassen sich im Baumodus (Abrissmodus, B) immer verkaufen, auch auf fremdem Land. Ohne Taste. Objekte anderer Höfe und der Karte bleiben gesperrt. Entfernte Zaunabschnitte und -felder werden zum Baupreis erstattet; das Grundspiel erstattet für Zäune nichts.
+
+Die Tasten sind unter Einstellungen > Steuerung änderbar. Im Mehrspieler auf dem Server und allen Clients installieren.]]></de>
+    </description>
+
+    <iconFilename>icon_deployablesAnywhere.png</iconFilename>
+    <multiplayer supported="true"/>
+    <l10n filenamePrefix="translations/translation"/>
+
+    <extraSourceFiles>
+        <sourceFile filename="scripts/DeployablesAnywhere.lua"/>
+    </extraSourceFiles>
+
+    <actions>
+        <action name="DA_TOGGLE_FREE_PLACEMENT" category="ONFOOT" axisType="HALF"/>
+        <action name="DA_TOGGLE_NO_LEVELING" category="ONFOOT" axisType="HALF"/>
+        <action name="DA_AXIS_NUDGE_FORWARD" category="ONFOOT" axisType="FULL"/>
+        <action name="DA_AXIS_NUDGE_SIDE" category="ONFOOT" axisType="FULL"/>
+        <action name="DA_AXIS_HEIGHT" category="ONFOOT" axisType="FULL"/>
+        <action name="DA_AXIS_ROTATE" category="ONFOOT" axisType="FULL"/>
+        <action name="DA_RESET_ADJUST" category="ONFOOT" axisType="HALF"/>
+    </actions>
+
+    <inputBinding>
+        <actionBinding action="DA_TOGGLE_FREE_PLACEMENT">
+            <binding device="KB_MOUSE_DEFAULT" input="KEY_lctrl KEY_lshift KEY_p"/>
+        </actionBinding>
+        <actionBinding action="DA_TOGGLE_NO_LEVELING">
+            <binding device="KB_MOUSE_DEFAULT" input="KEY_lctrl KEY_lshift KEY_g"/>
+        </actionBinding>
+        <actionBinding action="DA_AXIS_NUDGE_FORWARD">
+            <binding device="KB_MOUSE_DEFAULT" input="KEY_lctrl KEY_lshift KEY_up" axisComponent="+"/>
+            <binding device="KB_MOUSE_DEFAULT" input="KEY_lctrl KEY_lshift KEY_down" axisComponent="-"/>
+        </actionBinding>
+        <actionBinding action="DA_AXIS_NUDGE_SIDE">
+            <binding device="KB_MOUSE_DEFAULT" input="KEY_lctrl KEY_lshift KEY_right" axisComponent="+"/>
+            <binding device="KB_MOUSE_DEFAULT" input="KEY_lctrl KEY_lshift KEY_left" axisComponent="-"/>
+        </actionBinding>
+        <actionBinding action="DA_AXIS_HEIGHT">
+            <binding device="KB_MOUSE_DEFAULT" input="KEY_lctrl KEY_lshift KEY_pageup" axisComponent="+"/>
+            <binding device="KB_MOUSE_DEFAULT" input="KEY_lctrl KEY_lshift KEY_pagedown" axisComponent="-"/>
+        </actionBinding>
+        <actionBinding action="DA_AXIS_ROTATE">
+            <binding device="KB_MOUSE_DEFAULT" input="KEY_lctrl KEY_lshift KEY_period" axisComponent="+"/>
+            <binding device="KB_MOUSE_DEFAULT" input="KEY_lctrl KEY_lshift KEY_comma" axisComponent="-"/>
+        </actionBinding>
+        <actionBinding action="DA_RESET_ADJUST">
+            <binding device="KB_MOUSE_DEFAULT" input="KEY_lctrl KEY_lshift KEY_backspace"/>
+        </actionBinding>
+    </inputBinding>
+</modDesc>
