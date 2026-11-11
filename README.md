@@ -58,7 +58,9 @@ Hold a key to repeat. Everything resets when you pick another item or leave cons
 
 Your farm's buildings, decorations and fences can always be sold in construction mode (demolition mode, **B**), also on land you do not own. No key needed. Items of other farms and of the map cannot be sold. Removed fence segments and panels are refunded at what they cost to build; the base game pays nothing back for fences.
 
-## Installation
+<p align="center">
+  <img src="https://raw.githubusercontent.com/DTM-Mods/.github/main/assets/installation.jpg" alt="Installation" width="100%">
+</p>
 
 Put `FS25_DeployablesAnywhere.zip` in `Documents/My Games/FarmingSimulator2025/mods`. In multiplayer, install it on the server and on every player's game.
 
