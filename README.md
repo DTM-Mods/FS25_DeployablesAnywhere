@@ -68,6 +68,10 @@ Put `FS25_DeployablesAnywhere.zip` in `Documents/My Games/FarmingSimulator2025/m
   <img src="https://raw.githubusercontent.com/DTM-Mods/.github/main/assets/patch-notes.jpg" alt="Patch notes" width="100%">
 </p>
 
+### 1.1.2.1
+
+- New mod icon in the DTM Mods style. Nothing else changed.
+
 ### 1.1.2.0
 
 - First release on GitHub.
