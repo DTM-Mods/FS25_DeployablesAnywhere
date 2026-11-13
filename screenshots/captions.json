@@ -1,0 +1,12 @@
+{
+  "2.jpg": {
+    "title": "Free placement",
+    "text": "In construction mode, Ctrl+Shift+P switches it on; the price at the cursor says so.",
+    "at": "bottom"
+  },
+  "3.jpg": {
+    "title": "See what is skipped",
+    "text": "The price names the check that is skipped, here an overlap with another object.",
+    "at": "bottom"
+  }
+}
