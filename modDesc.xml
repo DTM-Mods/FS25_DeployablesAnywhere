@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<modDesc descVersion="114" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://validation.gdn.giants-software.com/xml/fs25/modDesc.xsd">
+<modDesc descVersion="115" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://validation.gdn.giants-software.com/xml/fs25/modDesc.xsd">
     <author>DTM Mods, Fennell</author>
-    <version>1.1.2.2</version>
+    <version>1.1.2.3</version>
     <title>
         <en>Deployables Anywhere</en>
         <de>Überall Platzieren</de>
@@ -21,7 +21,11 @@ Hold a key to repeat. Everything resets when you pick another item or leave cons
 
 Selling: your farm's buildings, decorations and fences can always be sold in construction mode (demolition mode, B), also on land you do not own. No key needed. Items of other farms and of the map cannot be sold. Removed fence segments and panels are refunded at what they cost to build; the base game pays nothing back for fences.
 
-The keys can be changed in Settings > Controls. Install on the server and every client in multiplayer.]]></en>
+The keys can be changed in Settings > Controls. Install on the server and every client in multiplayer.
+
+Changelog 1.1.2.3:
+- Meets the GIANTS ModHub checks (TestRunner): textures, icon and modDesc brought up to date.
+- Errors are no longer hidden: they show in the log.]]></en>
         <de><![CDATA[Gebäude, Deko, Zäune und Bäume dort platzieren, wo das Spiel es nicht erlaubt, ohne Einebnen platzieren und Objekte genau ausrichten.
 
 Freies Platzieren (Strg+Umschalt+P) ist zunächst aus, damit nichts aus Versehen passiert. Im Baumodus ein Objekt wählen und Strg+Umschalt+P drücken; die F1-Hilfe zeigt den Zustand. Solange es an ist, entfallen diese Prüfungen: fremdes Land, Überschneidung mit anderen Objekten, gesperrte Bereiche, Shop- und Spawnbereiche, Wasser, die eigene "kann hier nicht platziert werden"-Prüfung des Objekts und blockierte Geländeanpassung. Am Preis beim Cursor steht, welche Prüfung entfällt. Wo die Geländeanpassung blockiert ist, wird ohne Einebnen platziert. Weiterhin geprüft: Geld, Bauplätze, die Baurechte deines Hofs und nicht kaufbare Objekte.
@@ -36,10 +40,14 @@ Taste halten wiederholt. Alles wird zurückgesetzt, wenn ein anderes Objekt gew�
 
 Verkaufen: Gebäude, Deko und Zäune deines Hofs lassen sich im Baumodus (Abrissmodus, B) immer verkaufen, auch auf fremdem Land. Ohne Taste. Objekte anderer Höfe und der Karte bleiben gesperrt. Entfernte Zaunabschnitte und -felder werden zum Baupreis erstattet; das Grundspiel erstattet für Zäune nichts.
 
-Die Tasten sind unter Einstellungen > Steuerung änderbar. Im Mehrspieler auf dem Server und allen Clients installieren.]]></de>
+Die Tasten sind unter Einstellungen > Steuerung änderbar. Im Mehrspieler auf dem Server und allen Clients installieren.
+
+Changelog 1.1.2.3:
+- Erfüllt die GIANTS-ModHub-Prüfungen (TestRunner): Texturen, Icon und modDesc auf den neuesten Stand gebracht.
+- Fehler werden nicht mehr versteckt und erscheinen im Log.]]></de>
     </description>
 
-    <iconFilename>icon_deployablesAnywhere.png</iconFilename>
+    <iconFilename>icon_deployablesAnywhere.dds</iconFilename>
     <multiplayer supported="true"/>
     <l10n filenamePrefix="translations/translation"/>
 

@@ -85,6 +85,53 @@ local function wrap(class, functionName, func)
 end
 
 -- ---------------------------------------------------------------------------------------------
+-- Undo: the mod changes some things only for the duration of a call to the game (stubbed checks, a hidden
+-- leveling error, the cursor's message functions, the selling context). Each change registers how to undo it.
+-- Normally it is undone right after the call. If the game's function fails, its error shows in the log and
+-- what is left is undone at the end of the frame (update), when construction mode closes, or when the map unloads.
+-- ---------------------------------------------------------------------------------------------
+
+DeployablesAnywhere.pendingUndos = {}
+
+function DeployablesAnywhere.addUndo(undo)
+    local entry = {undo = undo}
+    table.insert(DeployablesAnywhere.pendingUndos, entry)
+    return entry
+end
+
+-- Removes the entry; runs its undo when runIt is true (unless runPendingUndos already did)
+function DeployablesAnywhere.removeUndo(entry, runIt)
+    local pending = DeployablesAnywhere.pendingUndos
+    for i = #pending, 1, -1 do
+        if pending[i] == entry then
+            table.remove(pending, i)
+            if runIt then
+                entry.undo()
+            end
+            return
+        end
+    end
+end
+
+-- Undoes what calls that failed left behind, innermost first
+function DeployablesAnywhere.runPendingUndos()
+    local pending = DeployablesAnywhere.pendingUndos
+    for i = #pending, 1, -1 do
+        local entry = pending[i]
+        pending[i] = nil
+        entry.undo()
+    end
+end
+
+-- Calls func and runs undo right after it
+function DeployablesAnywhere.callWithUndo(undo, func, ...)
+    local entry = DeployablesAnywhere.addUndo(undo)
+    local count, results = packResults(func(...))
+    DeployablesAnywhere.removeUndo(entry, true)
+    return unpack(results, 1, count)
+end
+
+-- ---------------------------------------------------------------------------------------------
 -- State
 -- ---------------------------------------------------------------------------------------------
 
@@ -93,10 +140,7 @@ function DeployablesAnywhere.isInstanceOf(object, classObject)
         return false
     end
     if type(object.isa) == "function" then
-        local ok, result = pcall(object.isa, object, classObject)
-        if ok then
-            return result == true
-        end
+        return object:isa(classObject) == true
     end
     -- Class() instances: metatable.__index is the class, whose metatable.__index is the super class
     local mt = getmetatable(object)
@@ -352,7 +396,7 @@ function DeployablesAnywhere.verifyAccess(brush, superFunc, ...)
     return unpack(results, 1, count)
 end
 
--- Calls func with the location checks of the placeable replaced, restoring them even if func fails
+-- Calls func with the location checks of the placeable replaced, restoring them afterwards (see Undo)
 function DeployablesAnywhere.callWithPlaceableStubs(placeable, func, ...)
     if type(placeable) ~= "table" then
         return func(...)
@@ -366,16 +410,11 @@ function DeployablesAnywhere.callWithPlaceableStubs(placeable, func, ...)
         end
     end
 
-    local count, results = packResults(pcall(func, ...))
-
-    for name, entry in pairs(saved) do
-        rawset(placeable, name, entry.value)
-    end
-
-    if not results[1] then
-        error(results[2], 0)
-    end
-    return unpack(results, 2, count)
+    return DeployablesAnywhere.callWithUndo(function()
+        for name, entry in pairs(saved) do
+            rawset(placeable, name, entry.value)
+        end
+    end, func, ...)
 end
 
 function DeployablesAnywhere.hasEnoughMoneyAndSlots(brush)
@@ -396,17 +435,15 @@ function DeployablesAnywhere.verifyPlacement(brush, superFunc, ...)
 
     -- First unchanged, to learn which check fails (shown at the cursor); most of the time nothing fails
     DeployablesAnywhere.isProbing = true
-    local probeCount, probe = packResults(pcall(superFunc, brush, ...))
-    DeployablesAnywhere.isProbing = false
-    if not probe[1] then
-        error(probe[2], 0)
-    end
-    local probeError = probe[2]
+    local probeCount, probe = packResults(DeployablesAnywhere.callWithUndo(function()
+        DeployablesAnywhere.isProbing = false
+    end, superFunc, brush, ...))
+    local probeError = probe[1]
     if probeError == nil or not DeployablesAnywhere.isBypassableError(probeError) then
         brush.daSkippedReason = nil
-        return unpack(probe, 2, probeCount)
+        return unpack(probe, 1, probeCount)
     end
-    brush.daSkippedReason = probe[3] or DeployablesAnywhere.getErrorText(probeError) or DeployablesAnywhere.getErrorName(probeError)
+    brush.daSkippedReason = probe[2] or DeployablesAnywhere.getErrorText(probeError) or DeployablesAnywhere.getErrorName(probeError)
 
     local count, results = packResults(DeployablesAnywhere.callWithPlaceableStubs(brush.placeable, superFunc, brush, ...))
     local errorCode = results[1]
@@ -429,15 +466,11 @@ function DeployablesAnywhere.callWithoutLevelingError(brush, func, ...)
     end
 
     brush.displacementError = nil
-    local count, results = packResults(pcall(func, brush, ...))
-    if brush.displacementError == nil then
-        brush.displacementError = levelingError
-    end
-
-    if not results[1] then
-        error(results[2], 0)
-    end
-    return true, unpack(results, 2, count)
+    return true, DeployablesAnywhere.callWithUndo(function()
+        if brush.displacementError == nil then
+            brush.displacementError = levelingError
+        end
+    end, func, brush, ...)
 end
 
 -- The notes after the price at the cursor: skipped checks, no flattening, height and rotation adjustment.
@@ -494,22 +527,14 @@ function DeployablesAnywhere.updatePlaceablePosition(brush, superFunc, ...)
         return setMessage(self, message, ...)
     end
 
-    local count, results
+    local function restoreSetMessage()
+        cursor.setMessage = setMessage
+    end
     if hidesLevelingError then
-        count, results = packResults(pcall(DeployablesAnywhere.callWithoutLevelingError, brush, superFunc, ...))
-        if results[1] then
-            table.remove(results, 2)
-            count = count - 1
-        end
-    else
-        count, results = packResults(pcall(superFunc, brush, ...))
+        -- without the first result of callWithoutLevelingError (whether there was a leveling error)
+        return select(2, DeployablesAnywhere.callWithUndo(restoreSetMessage, DeployablesAnywhere.callWithoutLevelingError, brush, superFunc, ...))
     end
-    cursor.setMessage = setMessage
-
-    if not results[1] then
-        error(results[2], 0)
-    end
-    return unpack(results, 2, count)
+    return DeployablesAnywhere.callWithUndo(restoreSetMessage, superFunc, brush, ...)
 end
 
 function DeployablesAnywhere.onButtonPrimary(brush, superFunc, ...)
@@ -526,12 +551,13 @@ function DeployablesAnywhere.onButtonPrimary(brush, superFunc, ...)
     if isSkippingLeveling or brush.displacementError ~= nil then
         DeployablesAnywhere.skipLevelingUntil = g_time + DeployablesAnywhere.SKIP_LEVELING_TIMEOUT
     end
-    local count, results = packResults(pcall(DeployablesAnywhere.callWithoutLevelingError, brush, superFunc, ...))
-    if not results[1] then
+    -- if the click fails nothing was bought: no placement without leveling stays armed (see Undo)
+    local entry = DeployablesAnywhere.addUndo(function()
         DeployablesAnywhere.skipLevelingUntil = nil
-        error(results[2], 0)
-    end
-    return unpack(results, 3, count)
+    end)
+    local count, results = packResults(DeployablesAnywhere.callWithoutLevelingError(brush, superFunc, ...))
+    DeployablesAnywhere.removeUndo(entry, false)
+    return unpack(results, 2, count)
 end
 
 -- Leveling costs nothing when the ground is not flattened
@@ -556,20 +582,18 @@ function DeployablesAnywhere.validateCurrentSegment(brush, superFunc, ...)
     cursor.setErrorMessage = function(_, ...)
         table.insert(errorMessages, {n = select("#", ...), ...})
     end
-    local count, results = packResults(pcall(superFunc, brush, ...))
-    cursor.setErrorMessage = setErrorMessage
-    if not results[1] then
-        error(results[2], 0)
-    end
+    local count, results = packResults(DeployablesAnywhere.callWithUndo(function()
+        cursor.setErrorMessage = setErrorMessage
+    end, superFunc, brush, ...))
 
     local function refuse()
         for _, args in ipairs(errorMessages) do
             setErrorMessage(cursor, unpack(args, 1, args.n))
         end
-        return unpack(results, 2, count)
+        return unpack(results, 1, count)
     end
 
-    if results[2] then
+    if results[1] then
         return refuse()
     end
 
@@ -704,15 +728,12 @@ function DeployablesAnywhere.callSelling(functionName, func, ...)
     if functionName ~= "deactivate" and functionName ~= "delete" then
         DeployablesAnywhere.allowSellingOfOwnPlaceables()
     end
-    local count, results = packResults(pcall(func, ...))
-    DeployablesAnywhere.sellingDepth = DeployablesAnywhere.sellingDepth - 1
-    if functionName == "deactivate" or functionName == "delete" then
-        DeployablesAnywhere.restoreSellingStubs()
-    end
-    if not results[1] then
-        error(results[2], 0)
-    end
-    return unpack(results, 2, count)
+    return DeployablesAnywhere.callWithUndo(function()
+        DeployablesAnywhere.sellingDepth = math.max(DeployablesAnywhere.sellingDepth - 1, 0)
+        if functionName == "deactivate" or functionName == "delete" then
+            DeployablesAnywhere.restoreSellingStubs()
+        end
+    end, func, ...)
 end
 
 -- The placeable under the cursor of the sell brush
@@ -768,15 +789,15 @@ function DeployablesAnywhere.getFenceValue(fencePlaceable)
         or DeployablesAnywhere.isPlaceableGone(fencePlaceable) then
         return 0
     end
-    local ok, fence = pcall(fencePlaceable.getFence, fencePlaceable)
-    if not ok or type(fence) ~= "table" or type(fence.segments) ~= "table" then
+    local fence = fencePlaceable:getFence()
+    if type(fence) ~= "table" or type(fence.segments) ~= "table" then
         return 0
     end
     local value = 0
     for _, segment in ipairs(fence.segments) do
-        if type(segment.getPrice) == "function" then
-            local okPrice, price = pcall(segment.getPrice, segment)
-            if okPrice and type(price) == "number" then
+        if type(segment) == "table" and type(segment.getPrice) == "function" then
+            local price = segment:getPrice()
+            if type(price) == "number" then
                 value = value + price
             end
         end
@@ -817,12 +838,9 @@ function DeployablesAnywhere.runSellPlaceableEvent(event, superFunc, connection,
     end
     local saved = rawget(placeable, "getIsOnOwnedFarmland")
     placeable.getIsOnOwnedFarmland = DeployablesAnywhere.PLACEABLE_STUBS.getIsOnOwnedFarmland
-    local count, results = packResults(pcall(superFunc, event, connection, ...))
-    rawset(placeable, "getIsOnOwnedFarmland", saved)
-    if not results[1] then
-        error(results[2], 0)
-    end
-    return unpack(results, 2, count)
+    return DeployablesAnywhere.callWithUndo(function()
+        rawset(placeable, "getIsOnOwnedFarmland", saved)
+    end, superFunc, event, connection, ...)
 end
 
 function DeployablesAnywhere.installSellingHooks()
@@ -902,12 +920,9 @@ function DeployablesAnywhere.callGuarded(functionName, brush, superFunc, ...)
         return superFunc(brush, ...)
     end
     guards[functionName] = true
-    local count, results = packResults(pcall(DeployablesAnywhere[functionName], brush, superFunc, ...))
-    guards[functionName] = nil
-    if not results[1] then
-        error(results[2], 0)
-    end
-    return unpack(results, 2, count)
+    return DeployablesAnywhere.callWithUndo(function()
+        guards[functionName] = nil
+    end, DeployablesAnywhere[functionName], brush, superFunc, ...)
 end
 
 -- Savegames re-source mod scripts, so the hooks are installed once and call the current DeployablesAnywhere table
@@ -964,6 +979,7 @@ function DeployablesAnywhere.installHooks()
         -- Everything off again every time construction mode is left
         ConstructionScreen.onClose = Utils.prependedFunction(ConstructionScreen.onClose,
             function()
+                DeployablesAnywhere.runPendingUndos()
                 DeployablesAnywhere.setEnabled(false)
                 DeployablesAnywhere.setNoLeveling(false)
                 DeployablesAnywhere.resetAdjustments()
@@ -976,7 +992,15 @@ function DeployablesAnywhere:loadMap()
     DeployablesAnywhere.installSellingHooks()
 end
 
+-- Between frames no hooked call is running: undo what a failed call left behind (see Undo)
+function DeployablesAnywhere:update(dt)
+    if #DeployablesAnywhere.pendingUndos > 0 then
+        DeployablesAnywhere.runPendingUndos()
+    end
+end
+
 function DeployablesAnywhere:deleteMap()
+    DeployablesAnywhere.runPendingUndos()
     self.isEnabled = false
     self.isNoLeveling = false
     self.eventIds = {}
