@@ -7,7 +7,9 @@
         <de>Überall Platzieren</de>
     </title>
     <description>
-        <en><![CDATA[Place buildings, decorations, fences and trees where the game says they cannot be placed, place without flattening the ground, and position items precisely.
+        <en><![CDATA[Description: Place buildings, decorations, fences and trees where the game says they cannot be placed, place them without flattening the ground, and position them precisely.
+Hotkeys: in construction mode. Ctrl+Shift+P: free placement on/off. Ctrl+Shift+G: place without flattening the ground. Ctrl+Shift+Arrow keys: nudge 10 cm. Ctrl+Shift+PageUp/PageDown: raise/lower 5 cm. Ctrl+Shift+Comma/Period: rotate 1°. Ctrl+Shift+Backspace: reset. Controller: none by default, set them under Settings > Controls.
+GitHub: https://github.com/DTM-Mods/FS25_DeployablesAnywhere
 
 Free placement (Ctrl+Shift+P) is off by default, so nothing changes by accident. In construction mode, pick an item and press Ctrl+Shift+P; the F1 help shows whether it is on. While it is on, these checks are skipped: land you do not own, overlap with other objects, restricted, shop and spawn areas, water, the item's own "cannot be placed here" check, and blocked terrain leveling. The price at the cursor names the check that is skipped, for example "(free placement: Land is not owned by you)". Where leveling is blocked, the item is placed without flattening the ground. Still checked: money, building slots, your farm's build permission, and items that cannot be bought.
 
@@ -21,11 +23,13 @@ Hold a key to repeat. Everything resets when you pick another item or leave cons
 
 Selling: your farm's buildings, decorations and fences can always be sold in construction mode (demolition mode, B), also on land you do not own. No key needed. Items of other farms and of the map cannot be sold. Removed fence segments and panels are refunded at what they cost to build; the base game pays nothing back for fences.
 
-The keys can be changed in Settings > Controls. Install on the server and every client in multiplayer.
+Install on the server and every client in multiplayer.
 
 Changelog 1.1.2.4:
 - Updated for the current game version (modDesc version 116).]]></en>
-        <de><![CDATA[Gebäude, Deko, Zäune und Bäume dort platzieren, wo das Spiel es nicht erlaubt, ohne Einebnen platzieren und Objekte genau ausrichten.
+        <de><![CDATA[Beschreibung: Gebäude, Deko, Zäune und Bäume dort platzieren, wo das Spiel es nicht erlaubt, ohne Einebnen platzieren und Objekte genau ausrichten.
+Tastenkombinationen: im Baumodus. Strg+Umschalt+P: freies Platzieren an/aus. Strg+Umschalt+G: ohne Einebnen platzieren. Strg+Umschalt+Pfeiltasten: 10 cm verschieben. Strg+Umschalt+Bild auf/Bild ab: 5 cm höher/tiefer. Strg+Umschalt+Komma/Punkt: um 1° drehen. Strg+Umschalt+Rücktaste: zurücksetzen. Controller: standardmäßig keine Belegung, unter Einstellungen > Steuerung festlegen.
+GitHub: https://github.com/DTM-Mods/FS25_DeployablesAnywhere
 
 Freies Platzieren (Strg+Umschalt+P) ist zunächst aus, damit nichts aus Versehen passiert. Im Baumodus ein Objekt wählen und Strg+Umschalt+P drücken; die F1-Hilfe zeigt den Zustand. Solange es an ist, entfallen diese Prüfungen: fremdes Land, Überschneidung mit anderen Objekten, gesperrte Bereiche, Shop- und Spawnbereiche, Wasser, die eigene "kann hier nicht platziert werden"-Prüfung des Objekts und blockierte Geländeanpassung. Am Preis beim Cursor steht, welche Prüfung entfällt. Wo die Geländeanpassung blockiert ist, wird ohne Einebnen platziert. Weiterhin geprüft: Geld, Bauplätze, die Baurechte deines Hofs und nicht kaufbare Objekte.
 
@@ -39,7 +43,7 @@ Taste halten wiederholt. Alles wird zurückgesetzt, wenn ein anderes Objekt gew�
 
 Verkaufen: Gebäude, Deko und Zäune deines Hofs lassen sich im Baumodus (Abrissmodus, B) immer verkaufen, auch auf fremdem Land. Ohne Taste. Objekte anderer Höfe und der Karte bleiben gesperrt. Entfernte Zaunabschnitte und -felder werden zum Baupreis erstattet; das Grundspiel erstattet für Zäune nichts.
 
-Die Tasten sind unter Einstellungen > Steuerung änderbar. Im Mehrspieler auf dem Server und allen Clients installieren.
+Im Mehrspieler auf dem Server und allen Clients installieren.
 
 Changelog 1.1.2.4:
 - An die aktuelle Spielversion angepasst (modDesc-Version 116).]]></de>
