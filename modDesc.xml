@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <modDesc descVersion="116" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://validation.gdn.giants-software.com/xml/fs25/modDesc.xsd">
     <author>DTM Mods, Fennell</author>
-    <version>1.1.2.4</version>
+    <version>1.1.2.5</version>
     <title>
         <en>Deployables Anywhere</en>
         <de>Überall Platzieren</de>
@@ -25,8 +25,9 @@ Selling: your farm's buildings, decorations and fences can always be sold in con
 
 Install on the server and every client in multiplayer.
 
-Changelog 1.1.2.4:
-- Updated for the current game version (modDesc version 116).]]></en>
+Changelog 1.1.2.5:
+- Description in GIANTS' ModHub layout (category, price, upkeep or hotkeys at the top).
+- New mod icon in the ModHub standard.]]></en>
         <de><![CDATA[Beschreibung: Gebäude, Deko, Zäune und Bäume dort platzieren, wo das Spiel es nicht erlaubt, ohne Einebnen platzieren und Objekte genau ausrichten.
 Tastenkombinationen: im Baumodus. Strg+Umschalt+P: freies Platzieren an/aus. Strg+Umschalt+G: ohne Einebnen platzieren. Strg+Umschalt+Pfeiltasten: 10 cm verschieben. Strg+Umschalt+Bild auf/Bild ab: 5 cm höher/tiefer. Strg+Umschalt+Komma/Punkt: um 1° drehen. Strg+Umschalt+Rücktaste: zurücksetzen. Controller: standardmäßig keine Belegung, unter Einstellungen > Steuerung festlegen.
 GitHub: https://github.com/DTM-Mods/FS25_DeployablesAnywhere
@@ -45,8 +46,9 @@ Verkaufen: Gebäude, Deko und Zäune deines Hofs lassen sich im Baumodus (Abriss
 
 Im Mehrspieler auf dem Server und allen Clients installieren.
 
-Changelog 1.1.2.4:
-- An die aktuelle Spielversion angepasst (modDesc-Version 116).]]></de>
+Changelog 1.1.2.5:
+- Beschreibung im ModHub-Aufbau von GIANTS (Kategorie, Preis, Unterhalt bzw. Tasten oben).
+- Neues Mod-Icon im ModHub-Standard.]]></de>
     </description>
 
     <iconFilename>icon_deployablesAnywhere.dds</iconFilename>
