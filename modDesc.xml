@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<modDesc descVersion="115" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://validation.gdn.giants-software.com/xml/fs25/modDesc.xsd">
+<modDesc descVersion="116" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://validation.gdn.giants-software.com/xml/fs25/modDesc.xsd">
     <author>DTM Mods, Fennell</author>
-    <version>1.1.2.3</version>
+    <version>1.1.2.4</version>
     <title>
         <en>Deployables Anywhere</en>
         <de>Überall Platzieren</de>
@@ -23,9 +23,8 @@ Selling: your farm's buildings, decorations and fences can always be sold in con
 
 The keys can be changed in Settings > Controls. Install on the server and every client in multiplayer.
 
-Changelog 1.1.2.3:
-- Meets the GIANTS ModHub checks (TestRunner): textures, icon and modDesc brought up to date.
-- Errors are no longer hidden: they show in the log.]]></en>
+Changelog 1.1.2.4:
+- Updated for the current game version (modDesc version 116).]]></en>
         <de><![CDATA[Gebäude, Deko, Zäune und Bäume dort platzieren, wo das Spiel es nicht erlaubt, ohne Einebnen platzieren und Objekte genau ausrichten.
 
 Freies Platzieren (Strg+Umschalt+P) ist zunächst aus, damit nichts aus Versehen passiert. Im Baumodus ein Objekt wählen und Strg+Umschalt+P drücken; die F1-Hilfe zeigt den Zustand. Solange es an ist, entfallen diese Prüfungen: fremdes Land, Überschneidung mit anderen Objekten, gesperrte Bereiche, Shop- und Spawnbereiche, Wasser, die eigene "kann hier nicht platziert werden"-Prüfung des Objekts und blockierte Geländeanpassung. Am Preis beim Cursor steht, welche Prüfung entfällt. Wo die Geländeanpassung blockiert ist, wird ohne Einebnen platziert. Weiterhin geprüft: Geld, Bauplätze, die Baurechte deines Hofs und nicht kaufbare Objekte.
@@ -42,9 +41,8 @@ Verkaufen: Gebäude, Deko und Zäune deines Hofs lassen sich im Baumodus (Abriss
 
 Die Tasten sind unter Einstellungen > Steuerung änderbar. Im Mehrspieler auf dem Server und allen Clients installieren.
 
-Changelog 1.1.2.3:
-- Erfüllt die GIANTS-ModHub-Prüfungen (TestRunner): Texturen, Icon und modDesc auf den neuesten Stand gebracht.
-- Fehler werden nicht mehr versteckt und erscheinen im Log.]]></de>
+Changelog 1.1.2.4:
+- An die aktuelle Spielversion angepasst (modDesc-Version 116).]]></de>
     </description>
 
     <iconFilename>icon_deployablesAnywhere.dds</iconFilename>
